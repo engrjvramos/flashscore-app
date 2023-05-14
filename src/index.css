@@ -13,3 +13,14 @@
 body {
   font-family: "Inter", sans-serif;
 }
+
+.footer__block {
+  clip-path: polygon(140px 0, 100% 0, 100% 100%, 0 100%);
+  width: calc(50% - 210px);
+}
+
+.footer__mobileScreen {
+  background: url(https://www.flashscore.ph/res/_fs/build/mobile_screen.fbb6793.png)
+    no-repeat 50%/191px 238px;
+  right: calc(50% - 480px);
+}
