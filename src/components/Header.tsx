@@ -71,7 +71,7 @@ export default function Header({ toggleTheme }: ThemeProps) {
                 Login
               </span>
             </button>
-            <Popover className="relative">
+            <Popover className="relative ">
               {({ open }) => (
                 <>
                   <Popover.Button
@@ -94,13 +94,13 @@ export default function Header({ toggleTheme }: ThemeProps) {
                   >
                     <Popover.Panel className="absolute right-0 z-10 mt-3 w-screen max-w-xs transform px-4 sm:px-0">
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                        <div className="relative grid gap-6 bg-white p-6">
-                          <div className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-color-support-1 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                        <div className="relative grid gap-6 bg-white p-6 dark:bg-color-secondary-2 dark:text-white">
+                          <div className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-color-support-1 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 dark:hover:bg-color-support-4">
                             <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-8 sm:w-12">
-                              <HiOutlineCog8Tooth className="h-6 w-6 text-black" />
+                              <HiOutlineCog8Tooth className="h-6 w-6 text-black dark:text-white" />
                             </div>
                             <div className="ml-4">
-                              <p className="select-none text-sm font-medium text-gray-900">
+                              <p className="select-none text-sm font-medium text-gray-900 dark:text-white">
                                 Settings
                               </p>
                             </div>
@@ -108,15 +108,15 @@ export default function Header({ toggleTheme }: ThemeProps) {
                           </div>
                           <Switch.Group>
                             <Switch.Label
-                              className="-m-3 flex cursor-pointer items-center justify-between rounded-lg p-2 transition duration-150 ease-in-out hover:bg-color-support-1 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                              className="-m-3 flex cursor-pointer items-center justify-between rounded-lg p-2 transition duration-150 ease-in-out hover:bg-color-support-1 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 dark:hover:bg-color-support-4"
                               onClick={toggleTheme}
                             >
                               <div className="flex items-center">
                                 <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-8 sm:w-12">
-                                  <HiOutlineMoon className="h-6 w-6 text-black" />
+                                  <HiOutlineMoon className="h-6 w-6 text-black dark:text-white" />
                                 </div>
                                 <div className="ml-4">
-                                  <p className="select-none text-sm font-medium text-gray-900">
+                                  <p className="select-none text-sm font-medium text-gray-900 dark:text-white">
                                     Dark Mode
                                   </p>
                                 </div>
@@ -126,7 +126,7 @@ export default function Header({ toggleTheme }: ThemeProps) {
                                 onChange={setEnabled}
                                 onClick={toggleTheme}
                                 className={`${
-                                  enabled ? "bg-color-green" : "bg-gray-100"
+                                  enabled ? "bg-color-green-1" : "bg-gray-100"
                                 } relative inline-flex h-5 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                               >
                                 <span
@@ -140,12 +140,12 @@ export default function Header({ toggleTheme }: ThemeProps) {
                               </Switch>
                             </Switch.Label>
                           </Switch.Group>
-                          <div className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-color-support-1 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
+                          <div className="-m-3 flex cursor-pointer items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-color-support-1 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 dark:hover:bg-color-support-4">
                             <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-8 sm:w-12">
-                              <HiOutlineTranslate className="h-6 w-6 text-black" />
+                              <HiOutlineTranslate className="h-6 w-6 text-black dark:text-white" />
                             </div>
                             <div className="ml-4">
-                              <p className="select-none text-sm font-medium text-gray-900">
+                              <p className="select-none text-sm font-medium text-gray-900 dark:text-white">
                                 English
                               </p>
                             </div>
