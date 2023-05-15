@@ -1,3 +1,4 @@
+import lookup from "country-code-lookup";
 import { useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { tabFilters } from "../constants/tabFilters";
@@ -6,9 +7,12 @@ import { HiChevronLeft, HiChevronRight, HiChevronUp } from "react-icons/hi2";
 import { IoStar, IoStarOutline } from "react-icons/io5";
 import { data } from "../constants/data";
 import dayjs from "dayjs";
-import Sidebar from "./Sidebar";
+import Sidebar from "../components/Sidebar";
+import { TournamentData } from "../models/TournamentData";
+import { Link } from "react-router-dom";
 
 export default function Home() {
+  const [myData] = useState<TournamentData[]>(data);
   const [active] = useState<string>("ALL");
   const date = new Date();
 
@@ -49,57 +53,14 @@ export default function Home() {
           <section className="px-4 pb-5">
             <div className="w-full">
               <div className="mx-auto grid w-full gap-1 rounded-2xl">
-                {/* {data.map((item) =>
-                  Object?.keys(item || {}).map((key, index) => (
-                    <Disclosure defaultOpen>
-                      {({ open }) => (
-                        <div key={index}>
-                          <Disclosure.Button className="flex w-full justify-between rounded-lg bg-color-favorite p-2 text-left text-sm font-medium text-color-support-4 focus:outline-none focus-visible:ring focus-visible:ring-color-favorite focus-visible:ring-opacity-75 dark:bg-color-secondary-3 dark:text-color-support-1">
-                            <div className="flex items-center">
-                              <IoStar className="mr-2 h-5 w-5 text-color-yellow-1" />
-
-                              <span className="text-xs font-semibold">
-                                {item[key].tournament_stage_name}
-                              </span>
-                            </div>
-                            <HiChevronUp
-                              className={`${
-                                open ? "rotate-180 transform" : ""
-                              } h-5 w-5 text-color-support-4 dark:text-color-support-1`}
-                            />
-                          </Disclosure.Button>
-                          <Disclosure.Panel className="mb-2 flex cursor-pointer items-center justify-between border-b px-2 py-2 text-xs text-gray-500 transition hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
-                            <div className="flex items-center">
-                              <IoStarOutline className="h-5 w-5" />
-                              <span className="px-8">Half Time</span>
-                              <div>
-                                <div className="py-1 text-xs">Team 1</div>
-                                <div className="py-1 text-xs">Team 2</div>
-                              </div>
-                            </div>
-                            <div className="grid grid-cols-2 grid-rows-2">
-                              <div className="px-4 py-1 text-xs font-semibold">
-                                1
-                              </div>
-                              <div className="px-4 py-1 text-xs">(2)</div>
-                              <div className="px-4 py-1 text-xs font-semibold">
-                                3
-                              </div>
-                              <div className="px-4 py-1 text-xs">(4)</div>
-                            </div>
-                          </Disclosure.Panel>
-                        </div>
-                      )}
-                    </Disclosure>
-                  ))
-                )} */}
-                {data.map((item) => {
+                {myData.map((item) => {
                   const nestedObject = item[Object.keys(item)[0]];
-                  const participantKeys = Object.keys(
+                  const participantIds = Object.keys(
                     nestedObject.event_participants
                   );
 
                   return Object.values(item).map((nestedObject) => {
+                    const matchId = nestedObject.id;
                     const tournamentStageName =
                       nestedObject.tournament_stage_name;
                     const statusType = nestedObject.status_type;
@@ -116,7 +77,7 @@ export default function Home() {
                         Object.keys(nestedObject.event_participants)[0]
                       ].participant.country_name;
 
-                    const resultValue1 =
+                    const participant1FinalResult =
                       nestedObject.event_participants[
                         Object.keys(nestedObject.event_participants)[0]
                       ].result[
@@ -126,6 +87,16 @@ export default function Home() {
                           ].result
                         )[0]
                       ].value;
+                    const participant2FinalResult =
+                      nestedObject.event_participants[
+                        Object.keys(nestedObject.event_participants)[1]
+                      ].result[
+                        Object.keys(
+                          nestedObject.event_participants[
+                            Object.keys(nestedObject.event_participants)[1]
+                          ].result
+                        )[1]
+                      ].value;
 
                     return (
                       <Disclosure defaultOpen>
@@ -133,7 +104,22 @@ export default function Home() {
                           <div key={nestedObject.id}>
                             <Disclosure.Button className="flex w-full justify-between rounded-lg bg-color-favorite p-2 text-left text-sm font-medium text-color-support-4 focus:outline-none focus-visible:ring focus-visible:ring-color-favorite focus-visible:ring-opacity-75 dark:bg-color-secondary-3 dark:text-color-support-1">
                               <div className="flex items-center">
-                                <IoStar className="mr-2 h-5 w-5 text-color-yellow-1" />
+                                <IoStar className="h-5 w-5 text-color-yellow-1" />
+                                <img
+                                  src={`https://flagsapi.com/${
+                                    countryName === "England" ||
+                                    countryName === "Wales"
+                                      ? "GB"
+                                      : countryName === "USA"
+                                      ? "US"
+                                      : countryName === "Czechia"
+                                      ? "CZ"
+                                      : countryName === "Turkiye"
+                                      ? "TR"
+                                      : lookup.byCountry(countryName)?.iso2
+                                  }/flat/64.png`}
+                                  className="mx-4 h-6 w-6"
+                                />
                                 <span className="mr-2 text-xs font-semibold uppercase">
                                   {countryName}:
                                 </span>
@@ -141,41 +127,46 @@ export default function Home() {
                                   {tournamentStageName}
                                 </span>
                               </div>
-                              <HiChevronUp
-                                className={`${
-                                  open ? "rotate-180 transform" : ""
-                                } h-5 w-5 text-color-support-4 dark:text-color-support-1`}
-                              />
-                            </Disclosure.Button>
-                            <Disclosure.Panel className="mb-2 flex cursor-pointer items-center justify-between border-b px-2 py-2 text-xs text-gray-500 transition hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
-                              <div className="flex items-center">
-                                <IoStarOutline className="h-5 w-5" />
-                                <span className="w-28 px-4 capitalize">
-                                  {statusType === "notstarted"
-                                    ? "not started"
-                                    : statusType}
+                              <div className="flex items-center gap-2">
+                                <span className="cursor-pointer text-xs underline hover:no-underline">
+                                  Standings
                                 </span>
-                                <div>
-                                  <div className="py-1 text-xs">
-                                    {participantName1}
-                                  </div>
-                                  <div className="py-1 text-xs">
-                                    {" "}
-                                    {participantName2}
-                                  </div>
-                                </div>
+                                <HiChevronUp
+                                  className={`${
+                                    open ? "rotate-180 transform" : ""
+                                  } h-5 w-5 text-color-support-4 dark:text-color-support-1`}
+                                />
                               </div>
-                              <div className="grid grid-cols-2 grid-rows-2">
-                                <div className="px-4 py-1 text-xs font-semibold">
-                                  {resultValue1}
+                            </Disclosure.Button>
+                            <Link to={`match/${matchId}`}>
+                              <Disclosure.Panel className="mb-2 flex cursor-pointer items-center justify-between border-b px-2 py-2 text-xs text-gray-500 transition hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
+                                <div className="flex items-center">
+                                  <IoStarOutline className="h-5 w-5" />
+                                  <span className="w-28 px-4 capitalize">
+                                    {statusType === "notstarted"
+                                      ? "not started"
+                                      : statusType}
+                                  </span>
+                                  <div>
+                                    <div className="py-1 text-xs">
+                                      {participantName1}
+                                    </div>
+                                    <div className="py-1 text-xs">
+                                      {" "}
+                                      {participantName2}
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="px-4 py-1 text-xs">(2)</div>
-                                <div className="px-4 py-1 text-xs font-semibold">
-                                  3
+                                <div className="grid grid-cols-1 grid-rows-2">
+                                  <div className="px-4 py-1 text-xs font-semibold">
+                                    {participant1FinalResult}
+                                  </div>
+                                  <div className="px-4 py-1 text-xs font-semibold">
+                                    {participant2FinalResult}
+                                  </div>
                                 </div>
-                                <div className="px-4 py-1 text-xs">(4)</div>
-                              </div>
-                            </Disclosure.Panel>
+                              </Disclosure.Panel>
+                            </Link>
                           </div>
                         )}
                       </Disclosure>

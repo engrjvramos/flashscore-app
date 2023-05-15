@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Popover, Transition, Switch } from "@headlessui/react";
 import Tooltip from "./Tooltip";
@@ -13,13 +13,14 @@ import {
   HiOutlineMoon,
 } from "react-icons/hi2";
 import Navbar from "./Navbar";
+import { Theme } from "../enums/Theme";
 
 interface ThemeProps {
   toggleTheme: () => void;
 }
 
 export default function Header({ toggleTheme }: ThemeProps) {
-  const [enabled, setEnabled] = useState<boolean>(false);
+  const [enabled, setEnabled] = useState(false);
 
   return (
     <header className="bg-color-secondary-1">

@@ -24,7 +24,7 @@ export default function Navbar() {
         </li>
         <li className="flex cursor-pointer flex-col items-center gap-2 border-b-4 border-color-primary-1 py-5 text-xs font-semibold uppercase text-white transition hover:text-white md:flex-row">
           <IoFootballOutline className="h-6 w-6" />
-          Football
+          Soccer
         </li>
         <li className="flex cursor-pointer flex-col items-center gap-2 py-5 text-xs font-semibold uppercase transition hover:text-white md:flex-row">
           <IoBasketball className="h-6 w-6" />
