@@ -55,9 +55,6 @@ export default function Home() {
               <div className="mx-auto grid w-full gap-1 rounded-2xl">
                 {myData.map((item) => {
                   const nestedObject = item[Object.keys(item)[0]];
-                  const participantIds = Object.keys(
-                    nestedObject.event_participants
-                  );
 
                   return Object.values(item).map((nestedObject) => {
                     const matchId = nestedObject.id;
