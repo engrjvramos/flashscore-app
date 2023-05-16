@@ -13,13 +13,21 @@ import {
   HiOutlineMoon,
 } from "react-icons/hi2";
 import Navbar from "./Navbar";
+import { Theme } from "../enums/Theme";
 
 interface ThemeProps {
+  theme: string;
   toggleTheme: () => void;
 }
 
-export default function Header({ toggleTheme }: ThemeProps) {
-  const [enabled, setEnabled] = useState(false);
+export default function Header({ theme, toggleTheme }: ThemeProps) {
+  const [enabled, setEnabled] = useState<boolean>(
+    theme === Theme.Light ? false : true
+  );
+
+  useEffect(() => {
+    theme === Theme.Dark ? setEnabled(true) : setEnabled(false);
+  }, []);
 
   return (
     <header className="bg-color-secondary-1">
@@ -125,13 +133,15 @@ export default function Header({ toggleTheme }: ThemeProps) {
                                 onChange={setEnabled}
                                 onClick={toggleTheme}
                                 className={`${
-                                  enabled ? "bg-color-green-1" : "bg-gray-100"
+                                  enabled && theme === Theme.Dark
+                                    ? "bg-color-green-1"
+                                    : "bg-gray-100"
                                 } relative inline-flex h-5 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                               >
                                 <span
                                   aria-hidden="true"
                                   className={`${
-                                    enabled
+                                    enabled && theme === Theme.Dark
                                       ? "translate-x-5 bg-white"
                                       : "translate-x-[1px] bg-color-support-3"
                                   } pointer-events-none inline-block h-4 w-4 transform rounded-full  shadow-lg ring-0 transition duration-200 ease-in-out`}

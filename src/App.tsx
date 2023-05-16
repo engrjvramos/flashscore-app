@@ -11,7 +11,7 @@ export default function App() {
 
   return (
     <>
-      <Header toggleTheme={themeToggler} />
+      <Header theme={theme} toggleTheme={themeToggler} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/match/:id" element={<Flashscore />} />

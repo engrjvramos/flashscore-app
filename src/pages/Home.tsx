@@ -54,8 +54,6 @@ export default function Home() {
             <div className="w-full">
               <div className="mx-auto grid w-full gap-1 rounded-2xl">
                 {myData.map((item) => {
-                  const nestedObject = item[Object.keys(item)[0]];
-
                   return Object.values(item).map((nestedObject) => {
                     const matchId = nestedObject.id;
                     const tournamentStageName =
