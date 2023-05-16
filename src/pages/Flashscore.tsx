@@ -1,23 +1,22 @@
 import { useState } from "react";
 import dataJSON from "../data/data.json";
 import { useNavigate, useParams } from "react-router-dom";
-import { TournamentData } from "../models/TournamentData";
 import { IoFootballOutline, IoStarOutline, IoShield } from "react-icons/io5";
 import { HiChevronRight } from "react-icons/hi2";
 import { IoArrowBackSharp } from "react-icons/io5";
 import lookup from "country-code-lookup";
 import dayjs from "dayjs";
+import { Event } from "../models/Event";
 
 export default function Flashscore() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [currentMatchId] = useState<string>(id!);
-  const [myData, setMyData] = useState<TournamentData[]>([]);
 
-  const nObject =
+  const nObject: Event =
     dataJSON.events[currentMatchId as keyof typeof dataJSON.events];
 
-  const countryName =
+  const countryName: string =
     nObject.event_participants[
       Object.keys(
         dataJSON.events[currentMatchId as keyof typeof dataJSON.events]
@@ -31,6 +30,7 @@ export default function Flashscore() {
         nObject.event_participants
       )[0] as keyof typeof nObject.event_participants
     ].participant.name;
+
   const participantName2 =
     nObject.event_participants[
       Object.keys(
@@ -96,7 +96,8 @@ export default function Flashscore() {
               <p>
                 {countryName}:{" "}
                 <span className="cursor-pointer hover:underline">
-                  {nObject.tournament_stage_name}
+                  {nObject.tournament_stage_name} {nObject.tournament_name} (
+                  {nObject.tournament_template_name})
                 </span>
               </p>
             </div>
@@ -114,12 +115,12 @@ export default function Flashscore() {
             </button>
           </div>
           <div className="mt-12 grid grid-cols-1 place-content-center gap-x-6 gap-y-12 sm:grid-cols-4">
-            <div className="flex flex-col items-center gap-y-6 sm:flex-row sm:justify-evenly">
+            <div className="flex flex-col items-center justify-evenly gap-y-6 sm:flex-row">
               <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-color-support-4 transition hover:bg-gray-300 hover:text-gray-700 active:bg-gray-400 active:text-gray-800 dark:text-white dark:hover:bg-slate-600 dark:active:bg-slate-700">
                 <IoStarOutline className="h-6 w-6" />
               </div>
-              <div className="text-center">
-                <div className="flex cursor-pointer items-center justify-center rounded-xl border border-gray-300 p-8">
+              <div className="flex flex-col items-center justify-center text-center">
+                <div className="flex h-28 w-28 cursor-pointer items-center justify-center rounded-xl border border-gray-300">
                   <IoShield className="h-12 w-12 text-blue-500" />
                 </div>
                 <div className="mt-4 text-color-support-4 dark:text-white">
@@ -177,7 +178,7 @@ export default function Flashscore() {
             </div>
             <div className="flex flex-col items-center justify-evenly gap-y-6 sm:flex-row">
               <div className="text-center">
-                <div className="flex cursor-pointer items-center justify-center rounded-xl border border-gray-300 p-8">
+                <div className="flex h-28 w-28 cursor-pointer items-center justify-center rounded-xl border border-gray-300">
                   <IoShield className="h-12 w-12 text-red-500" />
                 </div>
                 <div className="mt-4 text-color-support-4 dark:text-white">

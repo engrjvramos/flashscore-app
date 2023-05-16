@@ -13,7 +13,6 @@ import {
   HiOutlineMoon,
 } from "react-icons/hi2";
 import Navbar from "./Navbar";
-import { Theme } from "../enums/Theme";
 
 interface ThemeProps {
   toggleTheme: () => void;
@@ -29,14 +28,13 @@ export default function Header({ toggleTheme }: ThemeProps) {
           <Link to="/">
             <svg
               preserveAspectRatio="xMinYMid meet"
-              enable-background="new 0 0 215 100"
               height="100"
               viewBox="0 0 215 100"
               width="215"
               xmlns="http://www.w3.org/2000/svg"
               className="h-8"
             >
-              <g clip-rule="evenodd" fill-rule="evenodd">
+              <g>
                 <g fill="#fff">
                   <path d="m180.8 24.9h-29.3c-.9 0-1.8.4-2.4 1l-6.6 6.6c-.6.6-1 1.5-1 2.4v39.6c0 .2.2.3.3.3h7.9c.2 0 .3-.2.3-.3v-18.6c0-1 .8-1.7 1.7-1.7h25.5c.2 0 .3-.2.3-.3v-7.9c0-.2-.2-.3-.3-.3h-25.5c-1 0-1.7-.8-1.7-1.7v-8.6c0-1 .8-1.7 1.7-1.7h29c.2 0 .3-.2.3-.3v-7.9c.1-.5 0-.6-.2-.6"></path>
                   <path d="m264.4 47.3c0 1-.8 1.7-1.7 1.7h-22.4c-1 0-1.7-.8-1.7-1.7v-12.1c0-1 .8-1.7 1.7-1.7h22.4c1 0 1.7.8 1.7 1.7zm7.6-14.8-6.6-6.6c-.6-.6-1.5-1-2.4-1h-23c-.9 0-1.8.4-2.4 1l-6.6 6.6c-.6.6-1 1.5-1 2.4v39.6c0 .2.2.3.3.3h7.9c.2 0 .3-.2.3-.3v-15.2c0-1 .8-1.7 1.7-1.7h22.4c1 0 1.7.8 1.7 1.7v15.2c0 .2.2.3.3.3h7.9c.2 0 .3-.2.3-.3v-39.6c.2-.9-.2-1.8-.8-2.4z"></path>
